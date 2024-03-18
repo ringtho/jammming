@@ -1,0 +1,13 @@
+.searchbar_container {
+    border: 1px solid red;
+    padding: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        width: 60vw;
+        padding: 1rem 0.5rem;
+    }
+}
