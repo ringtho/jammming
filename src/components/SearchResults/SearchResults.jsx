@@ -2,11 +2,11 @@ import React from 'react'
 import './SearchResults.scss'
 import Track from '../Track/Track'
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, alterFunction, text }) => {
   const resultsArr = results.map(track => {
     return (
       <li key={track.id}>
-        <Track track={track} />
+        <Track track={track} alterFunction={alterFunction} text={text} />
       </li>
     )
   })

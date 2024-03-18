@@ -1,7 +1,7 @@
 import React from 'react'
 import './Track.scss'
 
-const Track = ({ track }) => {
+const Track = ({ track, alterFunction, text }) => {
   return (
     <div className="track_container">
       <div>
@@ -10,7 +10,7 @@ const Track = ({ track }) => {
         <small>{track.album}</small>
       </div>
 
-      <button>Add</button>
+      <button onClick={() => alterFunction(track)}>{text}</button>
     </div>
   )
 }

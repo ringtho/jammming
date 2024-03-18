@@ -2,14 +2,16 @@ import React from 'react'
 import './Playlist.scss'
 import Track from '../Track/Track'
 
-const Playlist = ({ playlist }) => {
+const Playlist = ({ playlist, alterFunction, text }) => {
   const playlistArr = playlist.map((track) => {
     return (
-      <li key={track.id}>
-        <Track track={track} />
+      <li key={`Track ${track.id}`}>
+        <Track track={track} alterFunction={alterFunction} text={text} />
       </li>
     )
   })
+
+  console.log(playlist)
   return (
     <div>
       <h1>Playlist</h1>
