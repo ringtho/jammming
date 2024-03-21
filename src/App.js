@@ -22,6 +22,8 @@ function App() {
     setPlaylist(newArr)
   }
 
+  console.log(playlistName)
+
   return (
     <div className="App">
       <SearchBar setResults={setResults} />

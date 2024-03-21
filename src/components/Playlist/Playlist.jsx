@@ -3,7 +3,12 @@ import './Playlist.scss'
 import Track from '../Track/Track'
 import PlaylistName from '../PlaylistName/PlaylistName'
 
-const Playlist = ({ playlist, alterFunction, text, playlistName, setPlaylistName }) => {
+const Playlist = ({ 
+  playlist, 
+  alterFunction, 
+  text, playlistName, 
+  setPlaylistName 
+}) => {
   const playlistArr = playlist.map((track) => {
     return (
       <li key={`Track ${track.id}`}>
