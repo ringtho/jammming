@@ -27,5 +27,31 @@ export const searchResults = async (searchParam, access_token) => {
       headers: getHeaders(access_token),
     })
     const searchResult = await response.json()
-    return searchResult.tracks.items
+    return searchResult?.tracks?.items
+}
+
+export const getUserID = async (access_token) => {
+    const url = `${BASEURL}/me`
+    const response = await fetch(url, {headers: getHeaders(access_token)})
+    const userID = await response.json()
+    return userID
+}
+
+export const createPlaylist = async (userID, data, access_token) => {
+    const url = `${BASEURL}/users/${userID}/playlists`
+    const response = await fetch(url, 
+        { method: "POST", headers: getHeaders(access_token), body: JSON.stringify(data) })
+    const playlist = await response.json()
+    return playlist
+}
+
+export const addSongsToPlaylist = async (playlistId, data, access_token) => {
+    const url = `${BASEURL}/playlists/${playlistId}/tracks`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: getHeaders(access_token),
+      body: JSON.stringify(data),
+    })
+    const playlist = await response.json()
+    return playlist
 }
