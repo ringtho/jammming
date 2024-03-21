@@ -6,7 +6,7 @@ import Playlist from './components/Playlist/Playlist'
 function App() {
   const [results, setResults] = useState([])
   const [playlist, setPlaylist] = useState([])
-  const [playlistName, setPlaylistName] = useState('')
+  const [playlistTitle, setPlaylistTitle] = useState('')
 
   const addToPlaylist = (song) => {
     if (!playlist.includes(song)) {
@@ -22,8 +22,6 @@ function App() {
     setPlaylist(newArr)
   }
 
-  console.log(playlistName)
-
   return (
     <div className="App">
       <SearchBar setResults={setResults} />
@@ -37,8 +35,8 @@ function App() {
           playlist={playlist}
           alterFunction={removeFromPlaylist}
           text="Remove"
-          playlistName={playlistName}
-          setPlaylistName={setPlaylistName}
+          playlistName={playlistTitle}
+          setPlaylistName={setPlaylistTitle}
         />
       </main>
     </div>

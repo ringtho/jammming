@@ -1,24 +1,28 @@
 import React from 'react'
 import './Playlist.scss'
 import Tracklist from '../Tracklist/Tracklist'
-import PlaylistName from '../PlaylistName/PlaylistName'
+import PlaylistTitle from '../PlaylistTitle/PlaylistTitle'
 
 const Playlist = ({ 
   playlist, 
   alterFunction, 
   text, 
-  playlistName, 
-  setPlaylistName 
+  playlistTitle, 
+  setPlaylistTitle 
 }) => {
 
   return (
     <div>
       <h1>Playlist</h1>
-      <PlaylistName
-        playlistName={playlistName}
-        setPlaylistName={setPlaylistName}
+      <PlaylistTitle
+        playlistTitle={playlistTitle}
+        setPlaylistTitle={setPlaylistTitle}
       />
-      <Tracklist results={playlist} alterFunction={alterFunction} text={text} />
+      <Tracklist 
+        results={playlist} 
+        alterFunction={alterFunction} 
+        text={text} 
+      />
       <button>Save To Spotify</button>
     </div>
   )
