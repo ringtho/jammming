@@ -11,7 +11,6 @@ const Playlist = ({ playlist, alterFunction, text }) => {
     )
   })
 
-  console.log(playlist)
   return (
     <div>
       <h1>Playlist</h1>
