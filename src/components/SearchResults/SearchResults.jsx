@@ -3,7 +3,7 @@ import './SearchResults.scss'
 import Tracklist from '../Tracklist/Tracklist'
 
 const SearchResults = ({ results, alterFunction, text }) => {
-  
+
   return (
     <div className="searchResults_container">
       <h2>Search Results</h2>

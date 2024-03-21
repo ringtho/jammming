@@ -1,22 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './SearchBar.scss'
-import { data } from '../utils/data'
+import generateSpotifyAccessToken from '../../utils/generateSpotifyAccessToken'
+import { getHashParams } from '../../utils/generateSpotifyAccessToken'
+import { getPlaylists, searchResults } from '../../api/api'
 
-const SearchBar = ({ setResults }) => {
-
+const SearchBar = ({ setResults, setUserPlaylists }) => {
   const [searchText, setSearchText] = useState('')
+  const [accessToken, setAccessToken] = useState({})
 
+  const access_token = JSON.parse(localStorage.getItem('Spotify')).access_token
   const handleChange = ({ target }) => {
     setSearchText(target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!accessToken?.access_token) {
+      generateSpotifyAccessToken()
+    }
+    const data = await searchResults(searchText, access_token)
     setResults(data)
   }
 
+  useEffect(() => {
+    const params = getHashParams()
+    localStorage.setItem('Spotify', JSON.stringify(params))
+    setAccessToken(params)
+  }, [])
+
+  useEffect(() => {
+    if (accessToken.access_token) {
+      const getData = async () => {
+        const playlists = await getPlaylists(accessToken.access_token)
+        setUserPlaylists(playlists.items)
+      }
+      getData()
+    }
+  }, [accessToken.access_token])
+
   return (
-    <div className='searchbar_container'>
+    <div className="searchbar_container">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -25,7 +48,7 @@ const SearchBar = ({ setResults }) => {
           value={searchText}
           onChange={handleChange}
         />
-        <button>Search</button>
+        <button type='submit'>Search</button>
       </form>
     </div>
   )
