@@ -13,8 +13,7 @@ const PlaylistTitle = ({ playlistTitle, setPlaylistTitle, saveToPlaylist }) => {
           aria-label="Playlist Title"
           required
         />
-        <button
-        >
+        <button>
           Save To Spotify
         </button>
       </form>

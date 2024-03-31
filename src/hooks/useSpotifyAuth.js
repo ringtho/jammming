@@ -1,0 +1,80 @@
+import { useEffect, useState } from 'react';
+
+const useSpotifyAuth = (clientId, redirectUri) => {
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem('access_token')
+  )
+  const [tokenExpirationTime, setTokenExpirationTime] = useState(
+    parseInt(localStorage.getItem('token_expiration_time'), 10)
+  )
+
+  const generateRandomString = (length) => {
+    let text = ''
+    const possible =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return text
+  }
+
+  const redirectToSpotifyAuth = () => {
+    const state = generateRandomString(16)
+    localStorage.setItem('spotify_auth_state', state)
+    const scope =
+      'user-read-private user-read-email playlist-modify-public playlist-read-private'
+
+    let url = 'https://accounts.spotify.com/authorize'
+    url += '?response_type=token'
+    url += `&client_id=${encodeURIComponent(clientId)}`
+    url += `&scope=${encodeURIComponent(scope)}`
+    url += `&redirect_uri=${encodeURIComponent(redirectUri)}`
+    url += `&state=${encodeURIComponent(state)}`
+
+    window.location.assign(url)
+  }
+
+  useEffect(() => {
+    const currentTime = new Date().getTime()
+
+    if (accessToken && tokenExpirationTime > currentTime) {
+      return
+    }
+
+    const hashParams = new URLSearchParams(window.location.hash.substring(1))
+    const urlAccessToken = hashParams.get('access_token')
+    const expiresIn = hashParams.get('expires_in')
+
+    if (urlAccessToken) {
+      const expirationTime = currentTime + parseInt(expiresIn, 10) * 1000
+      localStorage.setItem('access_token', urlAccessToken)
+      localStorage.setItem('token_expiration_time', expirationTime.toString())
+
+      setAccessToken(urlAccessToken)
+      setTokenExpirationTime(expirationTime)
+
+      window.location.hash = ''
+    } else if (!accessToken || currentTime >= tokenExpirationTime) {
+      redirectToSpotifyAuth()
+    }
+  }, [accessToken, tokenExpirationTime])
+
+  
+
+    // logic to refresh the token if it's close to expiration
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      if (new Date().getTime() / 1000 >= tokenExpirationTime - 300) {
+        // 5 minutes before expiration
+        redirectToSpotifyAuth()
+      }
+    }
+
+      const interval = setInterval(checkTokenExpiration, 60000) // Check every minute
+      return () => clearInterval(interval)
+    }, [tokenExpirationTime])
+
+  return accessToken
+}
+
+export default useSpotifyAuth

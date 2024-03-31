@@ -1,42 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './SearchBar.scss'
-import generateSpotifyAccessToken from '../../utils/generateSpotifyAccessToken'
-import { getHashParams } from '../../utils/generateSpotifyAccessToken'
-import { getPlaylists, searchResults } from '../../api/api'
+import { searchResults } from '../../api/api'
+import useSpotifyAuth from '../../hooks/useSpotifyAuth'
 
-const SearchBar = ({ setResults, setUserPlaylists }) => {
+const SearchBar = ({ setResults }) => {
   const [searchText, setSearchText] = useState('')
-  const [accessToken, setAccessToken] = useState({})
+  const [error, setError] = useState('')
+  const clientId = process.env.REACT_APP_CLIENT_ID
+  const redirectUri = process.env.REACT_APP_REDIRECT_URI
 
-  const access_token = JSON.parse(localStorage.getItem('Spotify')).access_token
+  // custom hook to manage Spotify auth
+  const accessToken = useSpotifyAuth(clientId, redirectUri)
+
   const handleChange = ({ target }) => {
     setSearchText(target.value)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!accessToken?.access_token) {
-      generateSpotifyAccessToken()
+    if (!accessToken) {
+      console.log('No access token available.')
+      return
     }
-    const data = await searchResults(searchText, access_token)
-    setResults(data)
+    try {
+      const data = await searchResults(searchText)
+      setResults(data)
+    } catch (error) {
+      console.error(error)
+      setError(error.message)
+    }
   }
-
-  useEffect(() => {
-    const params = getHashParams()
-    localStorage.setItem('Spotify', JSON.stringify(params))
-    setAccessToken(params)
-  }, [])
-
-  useEffect(() => {
-    if (accessToken.access_token) {
-      const getData = async () => {
-        const playlists = await getPlaylists(accessToken.access_token)
-        setUserPlaylists(playlists.items)
-      }
-      getData()
-    }
-  }, [accessToken.access_token])
 
   return (
     <div className="searchbar_container">
@@ -47,8 +40,10 @@ const SearchBar = ({ setResults, setUserPlaylists }) => {
           aria-label="Search for songs"
           value={searchText}
           onChange={handleChange}
+          required
         />
-        <button type='submit'>Search</button>
+        <button type="submit">Search</button>
+        {error && <small>{error}</small>}
       </form>
     </div>
   )
