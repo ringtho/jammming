@@ -4,9 +4,21 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1rem;
 
     button {
         padding: 1rem 0.5rem;
+        margin-left: auto;
+    }
+
+    .track_image {
+        height: 64px;
+        width: 64px;
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
     }
 }

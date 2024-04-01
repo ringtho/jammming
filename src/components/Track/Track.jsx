@@ -8,6 +8,9 @@ const Track = ({ track, alterFunction, text }) => {
 
   return (
     <div className="track_container">
+      <div className='track_image'>
+        <img src={track.album.images[2].url} alt={track.name} />
+      </div>
       <div>
         <h1>{track.name}</h1>
         <p>{track.artist}</p>

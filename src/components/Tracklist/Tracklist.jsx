@@ -10,7 +10,7 @@ const Tracklist = ({ results, alterFunction, text }) => {
       </li>
     )
   })
-  return <ul>{resultsArr}</ul>
+  return <ul className="tracklist_container">{resultsArr}</ul>
 }
 
 export default Tracklist

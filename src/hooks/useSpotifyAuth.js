@@ -36,8 +36,8 @@ const useSpotifyAuth = (clientId, redirectUri) => {
 
   useEffect(() => {
     const currentTime = new Date().getTime()
-
     if (accessToken && tokenExpirationTime > currentTime) {
+      console.log('Token is valid, no action needed.')
       return
     }
 
@@ -52,26 +52,27 @@ const useSpotifyAuth = (clientId, redirectUri) => {
 
       setAccessToken(urlAccessToken)
       setTokenExpirationTime(expirationTime)
-
       window.location.hash = ''
-    } else if (!accessToken || currentTime >= tokenExpirationTime) {
+      
+    } else if (!urlAccessToken || currentTime >= tokenExpirationTime) {
       redirectToSpotifyAuth()
     }
   }, [accessToken, tokenExpirationTime])
 
-  
-
-    // logic to refresh the token if it's close to expiration
   useEffect(() => {
     const checkTokenExpiration = () => {
-      if (new Date().getTime() / 1000 >= tokenExpirationTime - 300) {
-        // 5 minutes before expiration
+      console.log('Checking.....')
+      const currentTime = new Date().getTime()
+      // console.log(`Current Time: ${currentTime}`)
+      // console.log(`Expiration Time: ${tokenExpirationTime}`)
+      // console.log(`Difference: ${(tokenExpirationTime - currentTime)/1000}`)
+      if (currentTime >= (tokenExpirationTime - 120 * 1000)) {
         redirectToSpotifyAuth()
       }
     }
-
-      const interval = setInterval(checkTokenExpiration, 60000) // Check every minute
-      return () => clearInterval(interval)
+    // Check every minute
+    const interval = setInterval(checkTokenExpiration, 60000)
+    return () => clearInterval(interval)
     }, [tokenExpirationTime])
 
   return accessToken
