@@ -4,10 +4,31 @@
   box-sizing: border-box;
 }
 
+body, html {
+  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Header styles
+header {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: #1DB954;
+}
+
 main {
   display: flex;
   justify-content: space-between;
   padding: 2rem 1rem;
-  font-family: Arial, sans-serif;
-
+  
 }
+

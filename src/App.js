@@ -2,9 +2,10 @@ import { useState } from "react"
 import SearchBar from "./components/SearchBar/SearchBar"
 import SearchResults from "./components/SearchResults/SearchResults"
 import Playlist from './components/Playlist/Playlist'
+import Footer from './components/Footer/Footer'
 import { getUserID, createPlaylist, addSongsToPlaylist } from "./api/api"
 
-function App() {
+const App = () => {
   const [results, setResults] = useState([])
   const [playlist, setPlaylist] = useState([])
   const [playlistTitle, setPlaylistTitle] = useState('')
@@ -42,12 +43,12 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="app">
+      <header className="app_header">
+        <p>Jammming Playlist Manager</p>
+      </header>
       <SearchBar setResults={setResults} />
       <main>
-        {message ? (
-          <h5>{message}</h5>
-        ) : (
           <>
             <SearchResults
               results={results}
@@ -65,8 +66,8 @@ function App() {
               />
             </div>
           </>
-        )}
       </main>
+      <Footer />
     </div>
   )
 }
