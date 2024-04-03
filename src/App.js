@@ -2,6 +2,7 @@ import { useState } from "react"
 import SearchBar from "./components/SearchBar/SearchBar"
 import SearchResults from "./components/SearchResults/SearchResults"
 import Playlist from './components/Playlist/Playlist'
+import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import { getUserID, createPlaylist, addSongsToPlaylist } from "./api/api"
 
@@ -44,9 +45,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <header className="app_header">
-        <p>Jammming Playlist Manager</p>
-      </header>
+      <Header />
       <SearchBar setResults={setResults} />
       <main>
           <>
