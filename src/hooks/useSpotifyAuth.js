@@ -34,6 +34,7 @@ const useSpotifyAuth = (clientId, redirectUri) => {
     window.location.assign(url)
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const currentTime = new Date().getTime()
     if (accessToken && tokenExpirationTime > currentTime) {
@@ -53,11 +54,12 @@ const useSpotifyAuth = (clientId, redirectUri) => {
       setAccessToken(urlAccessToken)
       setTokenExpirationTime(expirationTime)
       window.location.hash = ''
-      
     } else if (!urlAccessToken || currentTime >= tokenExpirationTime) {
       redirectToSpotifyAuth()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, tokenExpirationTime])
+
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -66,14 +68,15 @@ const useSpotifyAuth = (clientId, redirectUri) => {
       // console.log(`Current Time: ${currentTime}`)
       // console.log(`Expiration Time: ${tokenExpirationTime}`)
       // console.log(`Difference: ${(tokenExpirationTime - currentTime)/1000}`)
-      if (currentTime >= (tokenExpirationTime - 120 * 1000)) {
+      if (currentTime >= tokenExpirationTime - 120 * 1000) {
         redirectToSpotifyAuth()
       }
     }
     // Check every minute
     const interval = setInterval(checkTokenExpiration, 60000)
     return () => clearInterval(interval)
-    }, [tokenExpirationTime])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tokenExpirationTime])
 
   return accessToken
 }
