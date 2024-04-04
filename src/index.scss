@@ -18,10 +18,19 @@ body, html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  // align-items: center;
 }
 
-main {
+.app_wrapper {
+  height: 100%;
+  flex: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app_container {
   align-self: center;
   display: flex;
   justify-content: center;

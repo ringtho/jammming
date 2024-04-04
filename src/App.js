@@ -5,6 +5,7 @@ import Playlist from './components/Playlist/Playlist'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import { getUserID, createPlaylist, addSongsToPlaylist } from "./api/api"
+import StartMessage from "./components/StartMessage/StartMessage"
 
 const App = () => {
   const [results, setResults] = useState([])
@@ -46,23 +47,30 @@ const App = () => {
   return (
     <div className="app">
       <Header />
-      <SearchBar setResults={setResults} />
-      <main className='app_container'>
-        <SearchResults
-          results={results}
-          alterFunction={addToPlaylist}
-          text="Add"
-        />
-        <div>
-          <Playlist
-            playlist={playlist}
-            alterFunction={removeFromPlaylist}
-            text="Remove"
-            playlistTitle={playlistTitle}
-            setPlaylistTitle={setPlaylistTitle}
-            saveToPlaylist={saveToPlaylist}
-          />
-        </div>
+      <main className="app_wrapper">
+        <SearchBar setResults={setResults} />
+        <section className="app_container">
+          {results.length > 1 && (
+            <SearchResults
+              results={results}
+              alterFunction={addToPlaylist}
+              text="Add"
+            />
+          )}
+          {playlist.length > 0 && (
+            <div>
+              <Playlist
+                playlist={playlist}
+                alterFunction={removeFromPlaylist}
+                text="Remove"
+                playlistTitle={playlistTitle}
+                setPlaylistTitle={setPlaylistTitle}
+                saveToPlaylist={saveToPlaylist}
+              />
+            </div>
+          )}
+          {results.length === 0 && playlist.length === 0 && <StartMessage />}
+        </section>
       </main>
       <Footer />
     </div>
