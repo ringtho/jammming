@@ -52,3 +52,8 @@
         font-size: 0.75rem;
     }
 }
+
+.track_text::after {
+    content: " \2022 ";
+    font-size: large;
+}

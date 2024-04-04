@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import './SearchBar.scss'
 import { searchResults } from '../../api/api'
 import useSpotifyAuth from '../../hooks/useSpotifyAuth'
+import toast from 'react-hot-toast'
 
 const SearchBar = ({ setResults }) => {
   const [searchText, setSearchText] = useState('')
-  const [error, setError] = useState('')
   const clientId = process.env.REACT_APP_CLIENT_ID
   const redirectUri = process.env.REACT_APP_REDIRECT_URI
 
@@ -19,15 +19,16 @@ const SearchBar = ({ setResults }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!accessToken) {
-      console.log('No access token available.')
+      toast.error('No access token available.')
       return
     }
     try {
       const data = await searchResults(searchText)
       setResults(data)
+      setSearchText('')
     } catch (error) {
       console.error(error)
-      setError(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -43,7 +44,6 @@ const SearchBar = ({ setResults }) => {
           required
         />
         <button type="submit">Search</button>
-        {error && <small>{error}</small>}
       </form>
     </div>
   )

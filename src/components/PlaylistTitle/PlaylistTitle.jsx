@@ -3,7 +3,7 @@ import './PlaylistTitle.scss'
 
 const PlaylistTitle = ({ playlistTitle, setPlaylistTitle, saveToPlaylist }) => {
   return (
-    <div>
+    <div className='playlistTitle_container'>
       <form onSubmit={(e) => saveToPlaylist(e)}>
         <input
           type="text"

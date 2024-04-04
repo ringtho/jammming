@@ -6,12 +6,13 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import { getUserID, createPlaylist, addSongsToPlaylist } from "./api/api"
 import StartMessage from "./components/StartMessage/StartMessage"
+import toast, { Toaster } from 'react-hot-toast'
 
 const App = () => {
   const [results, setResults] = useState([])
   const [playlist, setPlaylist] = useState([])
   const [playlistTitle, setPlaylistTitle] = useState('')
-  const [message, setMessage] = useState('')
+  // const [message, setMessage] = useState('')
 
   const addToPlaylist = (song) => {
     if (!playlist.includes(song)) {
@@ -37,8 +38,13 @@ const App = () => {
       const urisArray = playlist.map((track) => track.uri)
       const response = await addSongsToPlaylist(playlistID, urisArray)
       if (response.snapshot_id) {
-        setMessage(`Successfully added ${urisArray.length} songs to ${playlistTitle}`)
+        // setMessage(`Successfully added ${urisArray.length} songs to ${playlistTitle}`)
         setPlaylist([])
+        setResults([])
+        setPlaylistTitle('')
+        toast.success(
+          `Successfully added ${urisArray.length} songs to ${playlistTitle}`
+        )
       }
     }
     return 
@@ -47,10 +53,11 @@ const App = () => {
   return (
     <div className="app">
       <Header />
+      <Toaster position="bottom-right" />
       <main className="app_wrapper">
         <SearchBar setResults={setResults} />
         <section className="app_container">
-          {results.length > 1 && (
+          {results.length > 0 && (
             <SearchResults
               results={results}
               alterFunction={addToPlaylist}

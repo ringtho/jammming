@@ -61,7 +61,7 @@ const useSpotifyAuth = (clientId, redirectUri) => {
 
   useEffect(() => {
     const checkTokenExpiration = () => {
-      console.log('Checking.....')
+      // console.log('Checking.....')
       const currentTime = new Date().getTime()
       // console.log(`Current Time: ${currentTime}`)
       // console.log(`Expiration Time: ${tokenExpirationTime}`)

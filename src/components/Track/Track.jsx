@@ -13,9 +13,9 @@ const Track = ({ track, alterFunction, text }) => {
       </div>
       <div>
         <h1 className="track_title">{track.name}</h1>
-        <span className="track_album">
-          {artistArr.join(', ')} . {track.album.name}
-        </span>{' '}
+        <small className="track_album">
+          <span className='track_text'>{artistArr.join(', ')}</span> {track.album.name}
+        </small>{' '}
       </div>
       {text === 'Add' ? (
         <i
@@ -25,12 +25,11 @@ const Track = ({ track, alterFunction, text }) => {
         ></i>
       ) : (
         <i
-          class="fa-solid fa-xmark remove"
+          className="fa-solid fa-xmark remove"
           onClick={() => alterFunction(track)}
           title="Remove track from playlist"
         ></i>
       )}
-      {/* <button onClick={() => alterFunction(track)}>{text}</button> */}
     </div>
   )
 }
