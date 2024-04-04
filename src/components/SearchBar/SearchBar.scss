@@ -1,13 +1,46 @@
 .searchbar_container {
-    border: 1px solid red;
+    // border: 1px solid red;
     padding: 2rem;
+    min-height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    input {
-        width: 60vw;
-        padding: 1rem 0.5rem;
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        button {
+            align-self: center;
+            padding: 1rem;
+            border: none;
+            width: 100px;
+            border-radius: 1.5rem;
+            background-color: #1DB954;
+            color: #FFF;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            
+            &:hover,
+            &:focus {
+                background-color: #1ed760;
+                cursor: pointer;
+            }
+        }
+
+        input {
+            width: 60vw;
+            padding: 1rem;
+            border-radius: 2rem;
+            border: none;
+            outline: none;
+            text-align: center;
+            font-size: 1.5rem;
+            caret-color: #1DB954;
+        }
     }
+
+    
 }

@@ -47,24 +47,22 @@ const App = () => {
     <div className="app">
       <Header />
       <SearchBar setResults={setResults} />
-      <main>
-          <>
-            <SearchResults
-              results={results}
-              alterFunction={addToPlaylist}
-              text="Add"
-            />
-            <div>
-              <Playlist
-                playlist={playlist}
-                alterFunction={removeFromPlaylist}
-                text="Remove"
-                playlistTitle={playlistTitle}
-                setPlaylistTitle={setPlaylistTitle}
-                saveToPlaylist={saveToPlaylist}
-              />
-            </div>
-          </>
+      <main className='app_container'>
+        <SearchResults
+          results={results}
+          alterFunction={addToPlaylist}
+          text="Add"
+        />
+        <div>
+          <Playlist
+            playlist={playlist}
+            alterFunction={removeFromPlaylist}
+            text="Remove"
+            playlistTitle={playlistTitle}
+            setPlaylistTitle={setPlaylistTitle}
+            saveToPlaylist={saveToPlaylist}
+          />
+        </div>
       </main>
       <Footer />
     </div>

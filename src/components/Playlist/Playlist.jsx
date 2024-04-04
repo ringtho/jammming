@@ -13,7 +13,7 @@ const Playlist = ({
 }) => {
   return (
     <div>
-      <h1>Playlist</h1>
+      <h1 className='playlist_title'>Playlist</h1>
       <PlaylistTitle
         playlistTitle={playlistTitle}
         setPlaylistTitle={setPlaylistTitle}

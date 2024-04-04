@@ -8,16 +8,29 @@ const Track = ({ track, alterFunction, text }) => {
 
   return (
     <div className="track_container">
-      <div className='track_image'>
+      <div className="track_image">
         <img src={track.album.images[2].url} alt={track.name} />
       </div>
       <div>
-        <h1>{track.name}</h1>
-        <p>{track.artist}</p>
-        <p>{artistArr.join(', ')}</p>
-        <small>{track.album.name}</small>
+        <h1 className="track_title">{track.name}</h1>
+        <span className="track_album">
+          {artistArr.join(', ')} . {track.album.name}
+        </span>{' '}
       </div>
-      <button onClick={() => alterFunction(track)}>{text}</button>
+      {text === 'Add' ? (
+        <i
+          className="fa-solid fa-plus"
+          onClick={() => alterFunction(track)}
+          title="Add track to playlist"
+        ></i>
+      ) : (
+        <i
+          class="fa-solid fa-xmark remove"
+          onClick={() => alterFunction(track)}
+          title="Remove track from playlist"
+        ></i>
+      )}
+      {/* <button onClick={() => alterFunction(track)}>{text}</button> */}
     </div>
   )
 }
