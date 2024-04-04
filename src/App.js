@@ -12,7 +12,6 @@ const App = () => {
   const [results, setResults] = useState([])
   const [playlist, setPlaylist] = useState([])
   const [playlistTitle, setPlaylistTitle] = useState('')
-  // const [message, setMessage] = useState('')
 
   const addToPlaylist = (song) => {
     if (!playlist.includes(song)) {
@@ -38,7 +37,6 @@ const App = () => {
       const urisArray = playlist.map((track) => track.uri)
       const response = await addSongsToPlaylist(playlistID, urisArray)
       if (response.snapshot_id) {
-        // setMessage(`Successfully added ${urisArray.length} songs to ${playlistTitle}`)
         setPlaylist([])
         setResults([])
         setPlaylistTitle('')
